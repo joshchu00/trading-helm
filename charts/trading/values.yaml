@@ -30,7 +30,7 @@ postgresql:
   # Additional volumeMounts on the output Deployment definition.
   volumeMounts:
     - name: postgresql-data
-      mountPath: /var/lib/postgresql/data
+      mountPath: /var/lib/postgresql
 
   # Additional volumes on the output Deployment definition.
   volumes:
