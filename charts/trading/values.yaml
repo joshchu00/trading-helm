@@ -64,7 +64,6 @@ postgresql:
   persistence:
     accessModes:
       - "ReadWriteOnce"
-    storageClass: ""
     size: "3Gi"
 
   # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
@@ -132,7 +131,6 @@ redis:
   persistence:
     accessModes:
       - "ReadWriteOnce"
-    storageClass: ""
     size: "100Mi"
 
   # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/

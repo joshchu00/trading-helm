@@ -9,7 +9,6 @@ spec:
   accessModes:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  storageClassName: {{ .Values.redis.persistence.storageClass }}
   resources:
     requests:
       storage: {{ .Values.redis.persistence.size }}

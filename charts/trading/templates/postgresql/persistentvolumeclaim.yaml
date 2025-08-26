@@ -9,7 +9,6 @@ spec:
   accessModes:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  storageClassName: {{ .Values.postgresql.persistence.storageClass }}
   resources:
     requests:
       storage: {{ .Values.postgresql.persistence.size }}
