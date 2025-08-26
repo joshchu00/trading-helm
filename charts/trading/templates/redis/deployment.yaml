@@ -18,7 +18,7 @@ spec:
       {{- end }}
       labels:
         {{- include "trading.labels" . | nindent 8 }}
-        {{- include "trading.redis.selectorLabels" . | nindent 4 }}
+        {{- include "trading.redis.selectorLabels" . | nindent 8 }}
         {{- with .Values.redis.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
