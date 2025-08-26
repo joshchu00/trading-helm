@@ -4,6 +4,7 @@ metadata:
   name: phoenix-service
   labels:
     {{- include "trading.labels" . | nindent 4 }}
+    {{- include "trading.phoenix.selectorLabels" . | nindent 4 }}
 spec:
   type: {{ .Values.phoenix.service.type }}
   ports:
@@ -12,4 +13,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "trading.selectorLabels" . | nindent 4 }}
+    {{- include "trading.phoenix.selectorLabels" . | nindent 4 }}

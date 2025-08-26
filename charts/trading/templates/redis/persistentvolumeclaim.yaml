@@ -4,6 +4,7 @@ metadata:
   name: redis-persistent-volume-claim
   labels:
     {{- include "trading.labels" . | nindent 4 }}
+    {{- include "trading.redis.selectorLabels" . | nindent 4 }}
 spec:
   {{- with .Values.redis.persistence.accessModes }}
   accessModes:

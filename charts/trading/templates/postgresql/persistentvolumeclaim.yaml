@@ -4,6 +4,7 @@ metadata:
   name: postgresql-persistent-volume-claim
   labels:
     {{- include "trading.labels" . | nindent 4 }}
+    {{- include "trading.postgresql.selectorLabels" . | nindent 4 }}
 spec:
   {{- with .Values.postgresql.persistence.accessModes }}
   accessModes:
