@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phoenix-deployment
+  labels:
+    {{- include "trading.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.phoenix.replicas }}
+  selector:
+    matchLabels:
+      {{- include "trading.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.phoenix.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "trading.labels" . | nindent 8 }}
+        {{- with .Values.phoenix.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.phoenix.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.phoenix.image.repository }}:{{ .Values.phoenix.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.phoenix.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.phoenix.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.phoenix.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.phoenix.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.phoenix.resources | nindent 12 }}
+          {{- with .Values.phoenix.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.phoenix.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: "phoenix-service-account"
