@@ -33,12 +33,6 @@ spec:
             - name: tcp
               containerPort: {{ .Values.postgresql.port }}
               protocol: TCP
-          livenessProbe:
-            {{- toYaml .Values.postgresql.livenessProbe | nindent 12 }}
-          readinessProbe:
-            {{- toYaml .Values.postgresql.readinessProbe | nindent 12 }}
-          resources:
-            {{- toYaml .Values.postgresql.resources | nindent 12 }}
           {{- with .Values.postgresql.envFrom }}
           envFrom:
             {{- toYaml . | nindent 12 }}
