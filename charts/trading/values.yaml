@@ -48,7 +48,7 @@ postgresql:
 
   envFrom:
     - secretRef:
-        name: app-secret
+        name: secret
 
   # Additional volumeMounts on the output Deployment definition.
   volumeMounts:
@@ -196,7 +196,7 @@ phoenix:
   volumes:
     - name: config
       configMap:
-        name: app-config-map
+        name: config-map
 
   #This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
   serviceAccount:
