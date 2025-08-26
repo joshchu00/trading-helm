@@ -1,4 +1,4 @@
-# trading helm
+# trading-helm
 
 ## GitHub Actions
 
