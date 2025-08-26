@@ -165,3 +165,10 @@ phoenix:
     type: ClusterIP
     # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
     port: 80
+
+  httpRoute:
+    parentRefs:
+      - name: gateway
+        namespace: gateway
+    hostnames:
+      - "phoenix-trading-dev-1.joshchu.xyz"
