@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-persistent-volume-claim
+  labels:
+    {{- include "trading.labels" . | nindent 4 }}
+    {{- include "trading.minio.selectorLabels" . | nindent 4 }}
+spec:
+  {{- with .Values.minio.persistence.accessModes }}
+  accessModes:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.minio.persistence.size }}

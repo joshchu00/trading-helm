@@ -2,6 +2,54 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+minio:
+  # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+  replicas: 1
+
+  podAnnotations: {}
+
+  podLabels: {}
+
+  # This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  imagePullSecrets: []
+
+  # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+  image:
+    repository: minio/minio
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: RELEASE.2025-07-23T15-54-02Z
+    # This sets the pull policy for images.
+    pullPolicy: IfNotPresent
+
+  port: 9000
+
+  envFrom:
+    - secretRef:
+        name: secret
+
+  # Additional volumeMounts on the output Deployment definition.
+  volumeMounts:
+    - name: minio-data
+      mountPath: /data
+
+  # Additional volumes on the output Deployment definition.
+  volumes:
+    - name: minio-data
+      persistentVolumeClaim:
+        claimName: minio-persistent-volume-claim
+
+  persistence:
+    accessModes:
+      - "ReadWriteOnce"
+    size: "5Gi"
+
+  # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+  service:
+    # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+    type: ClusterIP
+    # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+    port: 9000
+
 postgresql:
   # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
   replicas: 1
@@ -164,7 +212,7 @@ phoenix:
     # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
     type: ClusterIP
     # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
-    port: 80
+    port: 8080
 
   httpRoute:
     parentRefs:
