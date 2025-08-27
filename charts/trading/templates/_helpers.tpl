@@ -11,6 +11,15 @@ app.kubernetes.io/part-of: {{ .Chart.Name }}
 {{- end }}
 
 {{/*
+minio selector labels
+*/}}
+{{- define "trading.minio.selectorLabels" -}}
+app.kubernetes.io/name: minio
+app.kubernetes.io/instance: minio-{{ .Values.minio.image.tag }}
+app.kubernetes.io/component: minio
+{{- end }}
+
+{{/*
 postgresql selector labels
 */}}
 {{- define "trading.postgresql.selectorLabels" -}}
