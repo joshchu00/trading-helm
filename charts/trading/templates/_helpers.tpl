@@ -45,3 +45,12 @@ app.kubernetes.io/name: phoenix
 app.kubernetes.io/instance: phoenix-{{ .Values.phoenix.image.tag }}
 app.kubernetes.io/component: phoenix
 {{- end }}
+
+{{/*
+milwaukee selector labels
+*/}}
+{{- define "trading.milwaukee.selectorLabels" -}}
+app.kubernetes.io/name: milwaukee
+app.kubernetes.io/instance: milwaukee-{{ .Values.milwaukee.image.tag }}
+app.kubernetes.io/component: milwaukee
+{{- end }}
