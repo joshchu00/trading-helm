@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   trading:
   - apiVersion: v2
+    appVersion: 0.1.16
+    created: "2025-08-31T13:28:36.89414337Z"
+    description: A Helm chart for Kubernetes
+    digest: 65234dd8ac47285711dd66d9433501ccc2ce8adf944a9e0090699bcfd33dc4ac
+    name: trading
+    type: application
+    urls:
+    - https://github.com/joshchu00/trading-helm/releases/download/trading-0.1.16/trading-0.1.16.tgz
+    version: 0.1.16
+  - apiVersion: v2
     appVersion: 0.1.15
     created: "2025-08-31T12:10:02.024961329Z"
     description: A Helm chart for Kubernetes
@@ -161,4 +171,4 @@ entries:
     urls:
     - https://github.com/joshchu00/trading-helm/releases/download/trading-0.1.0/trading-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-31T12:10:02.025092673Z"
+generated: "2025-08-31T13:28:36.894761487Z"
