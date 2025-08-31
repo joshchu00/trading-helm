@@ -133,7 +133,7 @@ redis:
   persistence:
     accessModes:
       - "ReadWriteOnce"
-    size: "100Mi"
+    size: "1Gi"
 
   # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
   service:
