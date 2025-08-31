@@ -54,3 +54,12 @@ app.kubernetes.io/name: milwaukee
 app.kubernetes.io/instance: milwaukee-{{ .Values.milwaukee.image.tag }}
 app.kubernetes.io/component: milwaukee
 {{- end }}
+
+{{/*
+anaheim selector labels
+*/}}
+{{- define "trading.anaheim.selectorLabels" -}}
+app.kubernetes.io/name: anaheim
+app.kubernetes.io/instance: anaheim-{{ .Values.anaheim.image.tag }}
+app.kubernetes.io/component: anaheim
+{{- end }}
