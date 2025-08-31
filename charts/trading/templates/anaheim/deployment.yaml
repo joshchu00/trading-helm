@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anaheim-deployment
+  labels:
+    {{- include "trading.labels" . | nindent 4 }}
+    {{- include "trading.anaheim.selectorLabels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.anaheim.replicas }}
+  selector:
+    matchLabels:
+      {{- include "trading.anaheim.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.anaheim.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "trading.labels" . | nindent 8 }}
+        {{- include "trading.anaheim.selectorLabels" . | nindent 8 }}
+        {{- with .Values.anaheim.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.anaheim.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.anaheim.image.repository }}:{{ .Values.anaheim.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.anaheim.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.anaheim.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.anaheim.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.anaheim.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.anaheim.resources | nindent 12 }}
+          {{- with .Values.anaheim.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.anaheim.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: "anaheim-service-account"

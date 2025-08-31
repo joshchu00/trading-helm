@@ -1,0 +1,18 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: anaheim-http-route
+  labels:
+    {{- include "trading.labels" . | nindent 4 }}
+    {{- include "trading.anaheim.selectorLabels" . | nindent 4 }}
+spec:
+  {{- with .Values.anaheim.httpRoute.parentRefs }}
+  parentRefs:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  hostnames:
+    {{ toYaml .Values.anaheim.httpRoute.hostnames }}
+  rules:
+    - backendRefs:
+      - name: anaheim-service
+        port: {{ .Values.anaheim.service.port }}
