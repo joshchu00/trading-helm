@@ -23,6 +23,8 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      securityContext:
+        fsGroup: 1000
       {{- with .Values.redis.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
