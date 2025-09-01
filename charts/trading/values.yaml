@@ -294,7 +294,7 @@ anaheim:
     # This sets the pull policy for images.
     pullPolicy: IfNotPresent
 
-  port: 8080
+  port: 8081
 
   # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
   livenessProbe:
@@ -344,7 +344,7 @@ anaheim:
     # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
     type: ClusterIP
     # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
-    port: 8080
+    port: 8081
 
   httpRoute:
     parentRefs:
