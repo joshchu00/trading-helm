@@ -294,7 +294,7 @@ anaheim:
     # This sets the pull policy for images.
     pullPolicy: IfNotPresent
 
-  port: 8081
+  port: 7070
 
   # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
   livenessProbe:
@@ -322,13 +322,14 @@ anaheim:
   # Additional volumeMounts on the output Deployment definition.
   volumeMounts:
     - name: config
-      mountPath: "/etc/trading"
+      mountPath: "/app/public/config.js"
+      subPath: anaheim.config.js
 
   # Additional volumes on the output Deployment definition.
   volumes:
     - name: config
       configMap:
-        name: config-map
+        name: anaheim-config-map
 
   #This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
   serviceAccount:
@@ -344,7 +345,7 @@ anaheim:
     # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
     type: ClusterIP
     # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
-    port: 8081
+    port: 7070
 
   httpRoute:
     parentRefs:
