@@ -322,8 +322,8 @@ anaheim:
   # Additional volumeMounts on the output Deployment definition.
   volumeMounts:
     - name: config
-      mountPath: "/app/public/config.js"
-      subPath: anaheim.config.js
+      mountPath: "/app/config.json"
+      subPath: anaheim.config.json
 
   # Additional volumes on the output Deployment definition.
   volumes:
