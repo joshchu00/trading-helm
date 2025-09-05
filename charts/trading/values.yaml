@@ -257,13 +257,14 @@ milwaukee:
   # Additional volumeMounts on the output Deployment definition.
   volumeMounts:
     - name: config
-      mountPath: "/etc/trading"
+      mountPath: "/app/config.yaml"
+      subPath: milwaukee.config.yaml
 
   # Additional volumes on the output Deployment definition.
   volumes:
     - name: config
       configMap:
-        name: config-map
+        name: milwaukee-config-map
 
   #This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
   serviceAccount:
