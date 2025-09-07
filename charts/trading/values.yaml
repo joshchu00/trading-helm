@@ -190,7 +190,8 @@ phoenix:
   # Additional volumeMounts on the output Deployment definition.
   volumeMounts:
     - name: config
-      mountPath: "/etc/trading"
+      mountPath: "/opt/trading/config"
+      readOnly: true
 
   # Additional volumes on the output Deployment definition.
   volumes:
@@ -259,6 +260,7 @@ milwaukee:
     - name: config
       mountPath: "/app/config.yaml"
       subPath: milwaukee.config.yaml
+      readOnly: true
 
   # Additional volumes on the output Deployment definition.
   volumes:
@@ -325,6 +327,7 @@ anaheim:
     - name: config
       mountPath: "/app/config.json"
       subPath: anaheim.config.json
+      readOnly: true
 
   # Additional volumes on the output Deployment definition.
   volumes:
