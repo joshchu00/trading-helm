@@ -324,15 +324,14 @@ anaheim:
   # Additional volumeMounts on the output Deployment definition.
   volumeMounts:
     - name: config
-      mountPath: "/app/config.json"
-      subPath: anaheim.config.json
+      mountPath: "/opt/trading/config"
       readOnly: true
 
   # Additional volumes on the output Deployment definition.
   volumes:
     - name: config
       configMap:
-        name: anaheim-config-map
+        name: config-map
 
   #This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
   serviceAccount:
