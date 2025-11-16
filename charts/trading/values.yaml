@@ -142,6 +142,54 @@ redis:
     # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
     port: 6379
 
+aurora:
+  # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+  schedule: "*/15 0-5 * * 1-5"
+
+  timeZone: UTC
+
+  podAnnotations: {}
+
+  podLabels: {}
+
+  # This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  imagePullSecrets: []
+
+  # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+  image:
+    repository: trading/aurora
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: latest
+    # This sets the pull policy for images.
+    pullPolicy: IfNotPresent
+
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  # Additional volumeMounts on the output Deployment definition.
+  volumeMounts:
+    - name: config
+      mountPath: "/opt/trading/config"
+      readOnly: true
+
+  # Additional volumes on the output Deployment definition.
+  volumes:
+    - name: config
+      configMap:
+        name: config-map
+
+  restartPolicy: OnFailure
+
 phoenix:
   # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
   replicas: 1
@@ -270,15 +318,6 @@ milwaukee:
     - name: config
       configMap:
         name: config-map
-
-  #This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
-  serviceAccount:
-    # Specifies whether a service account should be created
-    create: true
-    # Automatically mount a ServiceAccount's API credentials?
-    automount: true
-    # Annotations to add to the service account
-    annotations: {}
 
 anaheim:
   # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/

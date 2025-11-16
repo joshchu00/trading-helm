@@ -1,0 +1,40 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: aurora-cronjob
+  labels:
+    {{- include "trading.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.aurora.schedule }}
+  timeZone: {{ .Values.aurora.timeZone }}
+  jobTemplate:
+    metadata:
+      {{- with .Values.aurora.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "trading.labels" . | nindent 8 }}
+        {{- with .Values.aurora.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.aurora.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.aurora.image.repository }}:{{ .Values.aurora.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.aurora.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.aurora.resources | nindent 12 }}
+          {{- with .Values.aurora.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.aurora.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: {{ .Values.aurora.restartPolicy }}
