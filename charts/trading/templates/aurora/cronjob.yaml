@@ -1,11 +1,11 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: aurora-cronjob
   labels:
     {{- include "trading.labels" . | nindent 4 }}
 spec:
-  schedule: {{ .Values.aurora.schedule }}
+  schedule: {{ .Values.aurora.schedule | quote }}
   timeZone: {{ .Values.aurora.timeZone }}
   jobTemplate:
     metadata:
